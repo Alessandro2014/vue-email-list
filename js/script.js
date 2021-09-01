@@ -5,17 +5,20 @@ Vue.config.devtools = true;
 const app = new Vue({
   el: '#app',
   data: {
-    mail: '',
+    mailingList: [],
   },
   methods: {
-  },
-  created() {
-    axios
+    getMail() {
+      axios
       .get('https://flynn.boolean.careers/exercises/api/random/mail')
       .then((res) => {
-        this.mail = res.data.response;
-        ;
+        this.mailingList.push(res.data.response);
       });
+    },
   },
- 
+  created() {
+    for(let i = 0; i < 10; i++){
+      this.getMail();
+    }
+  },
 });
